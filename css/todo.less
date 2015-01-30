@@ -1,0 +1,190 @@
+//todo.less
+@c1:#777;
+@c2:#336699;
+@c3:#333;
+@c4:#999;
+@c5:#000;
+@c6:#fff;
+@c7:#eee;
+@c8:#ccc;
+@rgba1:rgba(0,0,0,0.2);
+
+.color(@c) {color: @c;}
+.background(@c) {background: @c;}
+.border(@pix:1px,@c) {border: @pix solid @c;}
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, font, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  font-weight: inherit;
+  font-style: inherit;
+  font-size: 100%;
+  font-family: inherit;
+  vertical-align: baseline;
+}
+body {
+  line-height: 1;
+  .color(@c5);
+  .background(@c6);
+}
+ol,ul {list-style: nonel}
+a {
+  img {border: none;}
+}
+html {.background(@c7);}
+body {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 14px;
+  line-height: 1.4em;
+  .background(@c7);
+  .color(@c3);
+}
+#todoapp {
+  width: 480px;
+  margin: 0 auto 40px;
+  .background(@c6);
+  padding: 20px;
+  box-shadow: @rgba1 0 5px 6px 0;
+  h1 {
+    font-size: 36px;
+    font-weight: bold;
+    text-align:center;
+    padding: 20px 0 30px 0;
+    line-height: 1px;
+  }
+}
+
+#create-todo {
+  position: relative;
+  input {
+    width: 466px;
+    font-size: 24px;
+    font-family: inherit;
+    line-height: 1.4em;
+    border: 0;
+    outline: none;
+    padding: 6px;
+    .border(1px,@c2);
+    box-shadow: @rgba1 0 1px 2px 0 inset;
+  }
+  input::-webkit-input-placeholder {font-size: italic;}
+  span {
+    position: absolute;
+    z-index: 999;
+    width: 170px;
+    left: 50%;
+    margin-left: -85px;
+  }
+}
+#todo-list {
+  margin-top: 10px;
+  li {
+    padding:12px 20px 11px 0;
+    position: relative;
+    font-size: 24px;
+    line-height: 1.1em;
+    border-bottom: 1px solid @c8;
+    &.edit {
+      padding: 0;
+      border-bottom: 0;
+    }
+    &:after{
+      content: "\0020";
+      display: block;
+      height: 0;
+      clear: both;
+      overflow: hidden;
+      visibility: hidden;
+    }
+    &:hover{
+      .todo-destroy {
+        display: block;
+      }
+    }
+  }
+  .editing{
+    input {
+      width: 444px;
+      font-size: 24px;
+      font-family: inherit;
+      margin: 0;
+      line-height: 1.6em;
+      outline: 0;
+      padding: 10px 7px 0px 27px;
+      .border(1px,@c4);
+      box-shadow: @rgba1 0 1px 2px 0 inset;
+    }
+    .display{
+     &:extend(#todo-list .edit);
+    }
+    .edit {display: block;}
+  }
+  .edit {display: none;}
+  .check {
+    position: relative;
+    top: 9;
+    margin: 0 10px 0 7px;
+    float: left;
+  }
+  .done{
+    .todo-content{
+      text-decoration: line-through;
+      .color(@c1);
+    }
+  }
+  .todo-destroy{
+    position: absolute;
+    right: 5px;
+    top: 14px;
+    display: none;
+    cursor: pointer;
+    width: 20px;
+    height: 20px;
+    background: url("destroy.png") no-repeat 0 0;
+    &:hover {
+      background-position: 0 -20px;
+    }
+  }
+}
+#todo-stats {
+  *zoom: 1;
+  margin-top: 10px;
+  .color(@c1);
+  &:after {
+    content: "\0020";
+    display: block;
+    height: 0;
+    clear: both;
+    overflow: hidden;
+    visibility: hidden;
+  }
+  .todo-count{
+    float: left;
+    .number {
+      font-weight: bold;
+      .color(@c3);
+    }
+  }
+  .todo-clear {
+    float: right;
+    a {
+      .color(@c1);
+      font-size: 12px;
+      &:visited {
+        .color(@c1);
+      }
+      &:hover {
+        .color(@c2);
+      }
+    }
+  }
+}
