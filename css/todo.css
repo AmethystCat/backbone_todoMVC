@@ -93,7 +93,7 @@ body {
   margin: 0 auto 40px;
   background: #ffffff;
   padding: 20px;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 5px 6px 0;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 5px 6px 0;
 }
 #todoapp h1 {
   font-size: 36px;
@@ -114,7 +114,7 @@ body {
   outline: none;
   padding: 6px;
   border: 1px solid #336699;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px 0 inset;
 }
 #create-todo input::-webkit-input-placeholder {
   font-size: italic;
@@ -160,7 +160,7 @@ body {
   outline: 0;
   padding: 10px 7px 0px 27px;
   border: 1px solid #999999;
-  box-shadow: rgba(0, 0, 0, 0.2) 0 1px 2px 0 inset;
+  box-shadow: rgba(0, 0, 0, 0.3) 0 1px 2px 0 inset;
 }
 #todo-list .editing .edit {
   display: block;
