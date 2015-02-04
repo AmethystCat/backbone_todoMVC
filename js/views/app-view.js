@@ -4,7 +4,7 @@ var app = app || {};
 app.AppView = Backbone.View.extend({
     el: '#todoapp',
 
-    statsTemplate: _.template($('#stats-template').html()),
+    statsTemplate: _.template( $('#stats-template').html() ),
 
     //new
     events: {
@@ -21,6 +21,13 @@ app.AppView = Backbone.View.extend({
 
         this.listenTo(app.Todos,'add',this.addOne);
         this.listenTo(app.Todos,'reset',this.addAll);
+
+        //new
+        this.listenTo(app.Todos,'change:completed',this.filterOne);
+        this.listenTo(app.Todos,'filter',this.filterAll);
+        this.listenTo(app.Todos,'all',this.render);
+
+        app.Todos.fetch();
     },
 
     //通过创建一个视图来向列表中添加一个todo项，并将其(html
@@ -51,11 +58,11 @@ app.AppView = Backbone.View.extend({
 
             this.$('#filters li a')
                 .removeClass('selected')
-                .filter('[href="#/"]'+(app.TodoFilter || '') + '"]')
+                .filter('[href="#/'+(app.TodoFilter || '') + '"]')
                 .addClass('selected');
         }else {
             this.$main.hide();
-            this.$footer.hidden();
+            this.$footer.hide();
         }
 
         this.allCheckbox.checked = !remaining;

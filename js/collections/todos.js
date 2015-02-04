@@ -3,11 +3,13 @@ var app = app || {};
 
 var TodoList = Backbone.Collection.extend({
     //Reference to this collection's model
+    //the model type used by collection.create() to instantiate new model in the collection
     model: app.Todo,
 
     //Save all of the todo items under the "todos-backbone" namespace
-    localStorage: new Backbone.localStorage('todos-backbone'),
-
+    localStorage: new Backbone.LocalStorage('todos-backbone'),
+    //localStorage: new Store('todos-backbone'),
+   //localStorage : new Backbone.
     //Filter down the list of all todo items that are finished.
     completed: function () {
         return this.filter(function( todo ){
