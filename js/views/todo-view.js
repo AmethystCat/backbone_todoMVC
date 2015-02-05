@@ -11,18 +11,26 @@ app.TodoView = Backbone.View.extend({
     //对每一条列表进行dom事件声明
 
     events : {
+        'click .toggle' : 'togglecompleted',  //new
         'dbclick label' : 'edit',
         'keypress .edit' : 'updateOnEnter',
-        'blur .edit' : 'close'
+        'blur .edit' : 'close',
+        'click .destroy' : 'clear' //new
     },
     // The TodoView listens for changes to its model, re-rendering. Since there's
     // a one-to-one correspondence between a **Todo** and a **TodoView** in this
     // app, we set a direct reference on the model for convenience.
     initialize: function () {
         this.listenTo(this.model,'change',this.render);
+        this.listenTo(this.model,'destroy',this.remove);   //new
+        this.listenTo(this.model,'visible',this.toggleVisible); //new
     },
     render : function () {
        this.$el.html(this.template(this.model.toJSON()));
+
+        this.$el.toggleClass( 'completed',this.model.get('completed') ); //new
+        this.toggleVisible(); //new
+
         this.$input = this.$('.edit');
         return this;
     },
@@ -48,5 +56,31 @@ app.TodoView = Backbone.View.extend({
         if (e.which === ENTER_KEY ) {
             this.close();
         }
+    },
+
+    //new - Toggles visibility of item
+
+    toggleVisible : function () {
+        this.$el.toggleClass( 'hidden', this.isHidden() );
+    },
+
+    //new - determins if item should be hidden
+    isHidden : function () {
+        var isCompleted = this.model.get('completed');
+        return ( //hidden cases only
+            (!isCompleted && app.TodoFilter === 'completed')
+            || (isCompleted && app.TodoFilter === 'active')
+        );
+    },
+
+    // new - toggle the 'completed' state of the model
+    togglecompleted : function () {
+        this.model.toggle();
+    },
+
+    //new - remove the item,destroy the model from
+    // *localStorage* and delete its view
+    clear : function () {
+        this.model.destroy();
     }
 });
